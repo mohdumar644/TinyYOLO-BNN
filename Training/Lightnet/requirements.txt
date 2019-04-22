@@ -1,0 +1,4 @@
+# Runtime dependencies
+git+https://gitlab.com/EAVISE/brambox
+
+.[visual]

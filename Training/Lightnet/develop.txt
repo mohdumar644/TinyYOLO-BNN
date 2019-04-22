@@ -1,0 +1,10 @@
+# Runtime dependencies
+git+https://gitlab.com/EAVISE/brambox
+
+# Development dependencies
+sphinx
+sphinx_rtd_theme
+recommonmark
+pycodestyle
+
+-e .[visual]

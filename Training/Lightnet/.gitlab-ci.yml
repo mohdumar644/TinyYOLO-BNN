@@ -1,0 +1,50 @@
+image: python:3.6.3-jessie
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/pip-cache"
+
+cache:
+  paths:
+    - "$CI_PROJECT_DIR/pip-cache"
+  key: "$CI_PROJECT_ID"
+
+before_script:
+    - pip install http://download.pytorch.org/whl/cpu/torch-0.4.1-cp36-cp36m-linux_x86_64.whl
+    - pip install torchvision
+    - pip install -r develop.txt
+
+stages:
+  - test
+  - deploy
+
+lint:
+  stage: test
+  script:
+    - pycodestyle --max-line-length=250 lightnet/ test/
+
+unittest:
+  stage: test
+  only:
+    - master
+    - tags
+  script:
+    - python setup.py test
+
+doctest:
+  stage: test
+  only:
+    - master
+    - tags
+  script:
+    - cd docs; make doctest; cd ..
+
+pages:
+  stage: deploy
+  only:
+    - tags
+  script:
+    - cd docs; make html; cd ..
+    - mv docs/.build/html public/
+  artifacts:
+    paths:
+      - public

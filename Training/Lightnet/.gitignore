@@ -1,0 +1,18 @@
+# Project specific
+docs/.build
+lightnet/version.py
+
+# Python specific
+__pycache__/
+*.py[cod]
+*.egg-info
+*.so
+*.o
+
+build/
+develop-eggs/
+dist/
+eggs/
+
+pip-log.txt
+pip-delete-this-directory.txt
